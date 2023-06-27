@@ -1,0 +1,84 @@
+<html>
+<head>
+  <title>Bulletin Board</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="custom-bootstrap.css">
+</head>
+<body>
+    <div class="container">
+      <h1 class="mt-5">Bulletin Board</h1>
+  
+      <!-- Question Form -->
+      <div class="row justify-content-center mt-4">
+        <div class="col-lg-8">
+          <form id="question-form" class="mb-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Write your question here..." required>
+              <button type="submit" class="btn btn-primary">Post</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <!-- Question List -->
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Date</th>
+                <th>Reply Status</th>
+              </tr>
+            </thead>
+            <tbody id="question-list">
+              <!-- Questions will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <!-- Script for Question Submission -->
+    <script>
+      // JavaScript code for submitting questions
+      document.getElementById('question-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+  
+        // Get the question from the input field
+        var questionInput = document.querySelector('#question-form input[type="text"]');
+        var question = questionInput.value;
+  
+        // Clear the input field
+        questionInput.value = '';
+  
+        // Call a function to handle the question submission
+        handleQuestion(question);
+      });
+  
+      // Function to handle the question submission
+      function handleQuestion(question) {
+        // Example code to handle the question submission
+        var currentDate = new Date().toLocaleDateString();
+        var replyStatus = 'Not Replied'; // You can update this based on the actual reply status
+  
+        // Create a new row for the question
+        var row = document.createElement('tr');
+        row.innerHTML = `
+          <td></td>
+          <td>${question}</td>
+          <td>${currentDate}</td>
+          <td>${replyStatus}</td>
+        `;
+  
+        // Insert the row at the beginning of the question list
+        var questionList = document.getElementById('question-list');
+        questionList.insertBefore(row, questionList.firstChild);
+      }
+    </script>
+  </body>
+  </html>

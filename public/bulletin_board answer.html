@@ -1,0 +1,77 @@
+<html>
+<head>
+  <title>Bulletin Board</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="custom-bootstrap.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Bulletin Board - Detail Page</h1>
+
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title" id="detail-question-title"></h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text" id="detail-question-date"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Reply to Question</h5>
+            <form id="reply-form">
+              <div class="mb-3">
+                <textarea class="form-control" id="reply-input" rows="3" placeholder="Write your reply here..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Post Reply</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script for Reply -->
+  <script>
+    var currentQuestion = {};
+
+    document.getElementById('reply-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var replyInput = document.getElementById('reply-input');
+      var reply = replyInput.value;
+      replyInput.value = '';
+      handleReply(reply);
+    });
+
+    function handleReply(reply) {
+      var replyCell = document.createElement('td');
+      replyCell.textContent = 'Replied: ' + reply;
+      currentQuestion.row.appendChild(replyCell);
+
+      // Redirect back to the list page
+      window.location.href = 'list.html';
+    }
+
+    // Retrieve question details from query string
+    function getQuestionDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const questionTitle = urlParams.get('title');
+      const questionDate = urlParams.get('date');
+
+      document.getElementById('detail-question-title').textContent = questionTitle;
+      document.getElementById('detail-question-date').textContent = questionDate;
+    }
+
+    getQuestionDetails();
+  </script>
+</body>
+</html>
